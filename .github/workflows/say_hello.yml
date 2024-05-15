@@ -2,6 +2,7 @@ name: Hello Test Python Versions
 
 on: push
 
+jobs:
   hello-test-python-versions:
     strategy:
       matrix:
