@@ -1,0 +1,36 @@
+name: Hello Test Python Versions
+
+on: push
+
+  hello-test-python-versions:
+    strategy:
+      matrix:
+      python-version: ['3.10', '3.11', '3.12']
+  runs-on: ubuntu-24.04
+  steps:
+    - run: echo "Job automatically triggered by event ${{ github.event_name }}."
+    - run:
+        echo "Job running on a ${{ runner.os }} server hosted by GitHub."
+        echo "On branch ${{ github.ref }} of repository ${{ github.repository }}."
+
+    - name: Check out repository code so it can be run by GitHub
+      uses: actions/checkout@v3
+
+    - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
+
+    - name: List files in repository
+      run:
+        echo "The contents of the repository are:"
+        ls ${{ github.workspace }}
+
+    - name: Setup Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - run: echo "Python has been set up."
+    - name: Run the Python code in main.py
+      run:
+        echo "Running Python code"
+        python main.py
+
+        
